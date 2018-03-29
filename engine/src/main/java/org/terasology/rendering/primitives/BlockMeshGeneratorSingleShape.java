@@ -29,6 +29,8 @@ import org.terasology.world.block.Block;
 import org.terasology.world.block.BlockAppearance;
 import org.terasology.world.block.BlockPart;
 import org.terasology.world.block.shapes.BlockMeshPart;
+import org.terasology.world.block.marchingCubes.VerticeNeighbor;
+import org.terasology.world.block.marchingCubes.Vertices;
 
 import java.util.Map;
 
@@ -71,7 +73,31 @@ public class BlockMeshGeneratorSingleShape implements BlockMeshGenerator {
             adjacentBlocks.put(side, blockToCheck);
         }
 
-        BlockAppearance blockAppearance = selfBlock.getAppearance(adjacentBlocks);
+        // Generate Marching Cubes Values
+        Map<Vertice, Float> verticeValues = Maps.newEnumMap(Vertice.class);
+        for (Vertice vertice : Vertice.values()) {
+            float value = 0.0f;
+            for (VerticeNeighbor verticeNeighbor : VerticeNeighbor.values()) {
+                Vector3i verticeOffset = vertice.getVector3i();
+                Vector3i verticeNeighborOffset = verticeNeighbor.getVector3i();
+                Block blockToCheck = view.getBlock(x + verticeOffset.x + verticeNeighbor.x,
+                    y + verticeOffset.y + verticeNeighbor.y,
+                    z + verticeOffset.z + verticeNeighbor.z);
+
+                if (blockToCheck.isMarchingCubes()) {
+                  value += 1.0f;
+                }
+            }
+            value = value / 8; // Number of blocks around a vertice
+            verticeValues.put(vertice, value);
+        }
+
+        BlockAppearance blockAppearance;
+        if (selfBlock.isMarchingCubes()) {
+            blockAppearance = selfBlock.getAppearance(verticeValues);
+        } else {
+            blockAppearance = selfBlock.getAppearance(adjacentBlocks);
+        }
 
         /*
          * Determine the render process.

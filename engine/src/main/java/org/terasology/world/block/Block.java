@@ -38,6 +38,7 @@ import org.terasology.rendering.primitives.BlockMeshGeneratorSingleShape;
 import org.terasology.rendering.primitives.Tessellator;
 import org.terasology.utilities.collection.EnumBooleanMap;
 import org.terasology.world.biomes.Biome;
+import org.terasology.world.block.BlockManager;
 import org.terasology.world.block.family.BlockFamily;
 import org.terasology.world.block.shapes.BlockMeshPart;
 import org.terasology.world.block.sounds.BlockSounds;
@@ -78,6 +79,7 @@ public final class Block {
     /* PROPERTIES */
 
     // Overall behavioural
+    private boolean marchingCubes;
     private boolean liquid;
     private boolean attachmentAllowed = true;
     private boolean replacementAllowed;
@@ -205,6 +207,10 @@ public final class Block {
 
     public void setLiquid(boolean liquid) {
         this.liquid = liquid;
+    }
+
+    public boolean isMarchingCubes() {
+        return marchingCubes;
     }
 
     public boolean isWater() {
