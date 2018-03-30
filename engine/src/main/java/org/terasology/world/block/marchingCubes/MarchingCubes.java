@@ -2,6 +2,7 @@ package org.terasology.world.block.marchingCubes;
 
 import org.terasology.math.geom.Vector3f;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class MarchingCubes {
     public static float isoLevel = 0.5f;
@@ -10,10 +11,10 @@ public class MarchingCubes {
         return new Vector3f(vec1.x + (vec2.x - vec1.x) * alpha, vec1.y + (vec2.y - vec1.y) * alpha, vec1.z + (vec2.z - vec1.z) * alpha);
     }
 
-    public static Vector3f[] marchingCubes(Vector3i position, Map<Vertice, Float> verticeValues) {
+    public static Vector3f[] marchingCubes(Vector3f position, Map<Vertice, Float> verticeValues) {
         ArrayList<Vector3f> vertices = new ArrayList<>();
         // Actual position along edge weighted according to function values.
-        float Vector3f[] = new Vector3f[12];
+        Vector3f[] vertList = new Vector3f[12];
 
         // Indices pointing to cube vertices
         //              pyz  ___________________  pxyz
@@ -56,7 +57,7 @@ public class MarchingCubes {
 
         // If no edge is triggered... return
         if (bits == 0) {
-            return vertices;
+            return vertices.toArray(new Vector3f[vertices.size()]);
         };
 
         // Interpolate the positions based od voxel intensities
@@ -125,9 +126,9 @@ public class MarchingCubes {
             int index3 = TablesMC.MC_TRI_TABLE[cubeindex + i + 2];
 
             // Add triangles vertices normalized with the maximal possible value
-            vertices.add(new Vector3f(vertList[index3][0] / maxAxisVal - 0.5f, vertList[index3][1] / maxAxisVal - 0.5f, vertList[index3][2] / maxAxisVal - 0.5f));
-            vertices.add(new Vector3f(vertList[index2][0] / maxAxisVal - 0.5f, vertList[index2][1] / maxAxisVal - 0.5f, vertList[index2][2] / maxAxisVal - 0.5f));
-            vertices.add(new Vector3f(vertList[index1][0] / maxAxisVal - 0.5f, vertList[index1][1] / maxAxisVal - 0.5f, vertList[index1][2] / maxAxisVal - 0.5f));
+            vertices.add(vertList[index3]);
+            vertices.add(vertList[index2]);
+            vertices.add(vertList[index1]);
 
             i += 3;
         }

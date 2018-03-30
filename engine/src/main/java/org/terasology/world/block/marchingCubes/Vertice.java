@@ -1,6 +1,6 @@
 package org.terasology.world.block.marchingCubes;
 
-import org.terasology.math.geom.Vector3i;
+import org.terasology.math.geom.Vector3f;
 
 public enum Vertice {
     // Indices pointing to cube vertices
@@ -18,22 +18,22 @@ public enum Vertice {
     //              |/__________________|/
     //             p                     px
 
-    FRONT_BOTTOM_RIGHT(new Vector3f(0.5, -0.5, -0.5)),  // p
-    FRONT_BOTTOM_LEFT(new Vector3i(-0.5, -0.5, -0.5)),  // px
-    BACK_BOTTOM_RIGHT(new Vector3i(0.5, -0.5, 0.5)),    // py
-    BACK_BOTTOM_LEFT(new Vector3i(-0.5, -0.5, 0.5)),    // pxy
-    FRONT_TOP_RIGHT(new Vector3i(0.5, 0.5, -0.5)),      // pz
-    FRONT_TOP_LEFT(new Vector3i(-0.5, 0.5, -0.5)),      // pxz
-    BACK_TOP_RIGHT(new Vector3i(0.5, 0.5, 0.5)),        // pyz
-    BACK_TOP_LEFT(new Vector3i(-0.5, 0.5, 0.5));        // pxyz
+    FRONT_BOTTOM_RIGHT(new Vector3f(0.5f, -0.5f, -0.5f)),  // p
+    FRONT_BOTTOM_LEFT(new Vector3f(-0.5f, -0.5f, -0.5f)),  // px
+    BACK_BOTTOM_RIGHT(new Vector3f(0.5f, -0.5f, 0.5f)),    // py
+    BACK_BOTTOM_LEFT(new Vector3f(-0.5f, -0.5f, 0.5f)),    // pxy
+    FRONT_TOP_RIGHT(new Vector3f(0.5f, 0.5f, -0.5f)),      // pz
+    FRONT_TOP_LEFT(new Vector3f(-0.5f, 0.5f, -0.5f)),      // pxz
+    BACK_TOP_RIGHT(new Vector3f(0.5f, 0.5f, 0.5f)),        // pyz
+    BACK_TOP_LEFT(new Vector3f(-0.5f, 0.5f, 0.5f));        // pxyz
 
-    private Vector3i vector3iDir;
+    private Vector3f position;
 
-    Vertice(Vector3i position) {
+    Vertice(Vector3f position) {
         this.position = position;
     }
 
-    public Vector3i getVector3i() {
-        return vector3iDir;
+    public Vector3f getVector3i() {
+        return position;
     }
 }

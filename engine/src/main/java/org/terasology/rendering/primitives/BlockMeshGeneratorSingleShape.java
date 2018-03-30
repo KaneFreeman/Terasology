@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.terasology.assets.ResourceUrn;
 import org.terasology.math.Side;
 import org.terasology.math.geom.Vector3i;
+import org.terasology.math.geom.Vector3f;
 import org.terasology.math.geom.Vector4f;
 import org.terasology.rendering.assets.mesh.Mesh;
 import org.terasology.world.ChunkView;
@@ -30,7 +31,7 @@ import org.terasology.world.block.BlockAppearance;
 import org.terasology.world.block.BlockPart;
 import org.terasology.world.block.shapes.BlockMeshPart;
 import org.terasology.world.block.marchingCubes.VerticeNeighbor;
-import org.terasology.world.block.marchingCubes.Vertices;
+import org.terasology.world.block.marchingCubes.Vertice;
 
 import java.util.Map;
 
@@ -74,30 +75,30 @@ public class BlockMeshGeneratorSingleShape implements BlockMeshGenerator {
         }
 
         // Generate Marching Cubes Values
-        Map<Vertice, Float> verticeValues = Maps.newEnumMap(Vertice.class);
+        /*Map<Vertice, Float> verticeValues = Maps.newEnumMap(Vertice.class);
         for (Vertice vertice : Vertice.values()) {
             float value = 0.0f;
             for (VerticeNeighbor verticeNeighbor : VerticeNeighbor.values()) {
-                Vector3i verticeOffset = vertice.getVector3i();
-                Vector3i verticeNeighborOffset = verticeNeighbor.getVector3i();
-                Block blockToCheck = view.getBlock(x + verticeOffset.x + verticeNeighbor.x,
-                    y + verticeOffset.y + verticeNeighbor.y,
-                    z + verticeOffset.z + verticeNeighbor.z);
+                Vector3f verticeOffset = vertice.getVector3f();
+                Vector3f verticeNeighborOffset = verticeNeighbor.getVector3f();
+                Block blockToCheck = view.getBlock(x + verticeOffset.x + verticeNeighborOffset.x,
+                    y + verticeOffset.y + verticeNeighborOffset.y,
+                    z + verticeOffset.z + verticeNeighborOffset.z);
 
                 if (blockToCheck.isMarchingCubes()) {
                   value += 1.0f;
                 }
             }
-            value = value / 8; // Number of blocks around a vertice
+            value = value / 8.0f; // Number of blocks around a vertice
             verticeValues.put(vertice, value);
-        }
+        }*/
 
         BlockAppearance blockAppearance;
-        if (selfBlock.isMarchingCubes()) {
+        /*if (selfBlock.isMarchingCubes()) {
             blockAppearance = selfBlock.getAppearance(verticeValues);
-        } else {
+        } else {*/
             blockAppearance = selfBlock.getAppearance(adjacentBlocks);
-        }
+        //}
 
         /*
          * Determine the render process.

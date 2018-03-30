@@ -188,7 +188,7 @@ public class WorldProviderCoreImpl implements WorldProviderCore {
     public Block setBlock(Vector3i worldPos, Block type) {
         /*
          * Hint: This method has a benchmark available in the BenchmarkScreen, The screen can be opened ingame via the
-         * command "showSCreen BenchmarkScreen".
+         * command "showScreen BenchmarkScreen".
          */
         Vector3i chunkPos = ChunkMath.calcChunkPos(worldPos);
         CoreChunk chunk = chunkProvider.getChunk(chunkPos);
